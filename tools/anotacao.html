@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anotação VA — Música Brasileira</title>
+    <style>
+      :root {
+        --bg: #f4f6f9;
+        --card: #ffffff;
+        --card2: #eef1f6;
+        --fg: #1b1f27;
+        --muted: #606a7b;
+        --accent: #2f6fed;
+        --accent2: #1a8a5a;
+        --border: #d9dfe8;
+        --danger: #cf3a43;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        line-height: 1.5;
+      }
+      .wrap {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px;
+        margin: 16px 0;
+        box-shadow: 0 2px 10px rgba(20, 30, 60, 0.06);
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      h2 {
+        font-size: 17px;
+        margin: 0 0 12px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      label {
+        display: block;
+        margin: 12px 0 4px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 9px;
+        border: 1px solid var(--border);
+        background: var(--card2);
+        color: var(--fg);
+        font-size: 15px;
+      }
+      button {
+        cursor: pointer;
+        border: 0;
+        border-radius: 10px;
+        padding: 12px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        background: var(--accent);
+        color: #fff;
+      }
+      button.ghost {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--fg);
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+      .pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: var(--card2);
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .pill.mod {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .progressbar {
+        height: 6px;
+        background: var(--card2);
+        border-radius: 99px;
+        overflow: hidden;
+        margin: 10px 0;
+      }
+      .progressbar > i {
+        display: block;
+        height: 100%;
+        background: var(--accent);
+        width: 0;
+      }
+      .lyrics {
+        white-space: pre-wrap;
+        background: var(--card2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+        max-height: 320px;
+        overflow: auto;
+        font-size: 15px;
+      }
+      .sam {
+        margin: 10px 0 4px;
+      }
+      .sam .scale {
+        display: flex;
+        gap: 6px;
+        justify-content: space-between;
+      }
+      .sam .opt {
+        flex: 1;
+        text-align: center;
+      }
+      .sam .opt input {
+        display: none;
+      }
+      .sam .opt label {
+        display: block;
+        margin: 0;
+        padding: 10px 0;
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        cursor: pointer;
+        color: var(--fg);
+        font-size: 15px;
+        background: var(--card2);
+        transition: 0.12s;
+      }
+      .sam .opt input:checked + label {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+        font-weight: 700;
+      }
+      .ends {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .audio-box {
+        background: var(--card2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+        text-align: center;
+      }
+      .play {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        font-size: 26px;
+        padding: 0;
+      }
+      .hint {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .warn {
+        color: var(--danger);
+      }
+      .ok {
+        color: var(--accent2);
+      }
+      .check {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-top: 12px;
+        color: var(--fg);
+        font-size: 14px;
+      }
+      .check input {
+        width: auto;
+      }
+      .hidden {
+        display: none;
+      }
+      .synced {
+        font-size: 12px;
+      }
+      a {
+        color: var(--accent);
+      }
+      code {
+        background: var(--card2);
+        padding: 1px 6px;
+        border-radius: 5px;
+      }
+      /* telas estreitas (celular): mais largura para os 9 botões da escala */
+      @media (max-width: 430px) {
+        .wrap {
+          padding: 10px;
+        }
+        .card {
+          padding: 16px;
+        }
+        .sam .scale {
+          gap: 4px;
+        }
+        .sam .opt label {
+          padding: 13px 0;
+        } /* alvo de toque bem alto */
+        .ends {
+          font-size: 11px;
+        }
+        h1 {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="between">
+        <h1>Anotação Valência–Arousal</h1>
+        <span id="syncState" class="pill synced">•</span>
+      </div>
+      <div class="muted">Percepção emocional de música brasileira — TCC</div>
+
+      <!-- LOGIN -->
+      <div id="scrLogin" class="card">
+        <h2>Identificação</h2>
+        <div class="hint" style="margin-top: -4px; margin-bottom: 6px">
+          Pesquisa conduzida por <b>Felipe Silva Faria</b> — TCC
+        </div>
+        <label>Senha recebida</label>
+        <input
+          type="text"
+          id="inPid"
+          placeholder="digite a senha que você recebeu"
+          autocomplete="off"
+        />
+        <label>Semana</label>
+        <select id="inSemana"></select>
+        <div id="loginErr" class="hint warn"></div>
+        <div class="row" style="margin-top: 16px">
+          <button id="btnLogin">Entrar</button>
+        </div>
+        <div class="hint">
+          Sua modalidade é sorteada e fixa em todas as semanas. Se recarregar a
+          página, seu progresso é recuperado.
+        </div>
+      </div>
+
+      <!-- DEMOGRAFIA -->
+      <div id="scrDemo" class="card hidden">
+        <h2>
+          Sobre você
+          <span class="muted" style="font-weight: 400">(só uma vez)</span>
+        </h2>
+        <label>Nome completo</label>
+        <input
+          type="text"
+          id="dNome"
+          placeholder="seu nome"
+          autocomplete="off"
+        />
+        <label>Idade</label>
+        <input
+          type="number"
+          id="dIdade"
+          min="12"
+          max="99"
+          placeholder="ex.: 24"
+        />
+        <label
+          >Familiaridade com música brasileira (1 = nenhuma, 5 = muita)</label
+        >
+        <select id="dFam">
+          <option value="">—</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+        <label>Você é músico(a) / estuda música?</label>
+        <select id="dMusico">
+          <option value="">—</option>
+          <option value="nao">Não</option>
+          <option value="amador">Amador/hobby</option>
+          <option value="estuda">Estudo música</option>
+          <option value="profissional">Profissional</option>
+        </select>
+        <div id="demoErr" class="hint warn"></div>
+        <div class="row" style="margin-top: 16px">
+          <button id="btnDemo">Continuar</button>
+        </div>
+      </div>
+
+      <!-- INTRO / CALIBRAÇÃO -->
+      <div id="scrIntro" class="card hidden">
+        <h2>Como avaliar</h2>
+        <p class="muted" id="introMod"></p>
+        <p>
+          Para cada faixa, indique a <b>emoção que a música expressa</b> (não a
+          que você sente), em duas escalas de 1 a 9:
+        </p>
+        <ul class="muted">
+          <li>
+            <b>Valência</b> — quão <i>negativa</i> (1) ou <i>positiva</i> (9) é
+            a emoção.
+          </li>
+          <li>
+            <b>Arousal</b> — quão <i>calma</i> (1) ou
+            <i>agitada/energética</i> (9) é.
+          </li>
+        </ul>
+        <p class="muted">
+          Referências de calibração: uma música de <b>festa</b> costuma ter
+          valência e arousal altos; uma <b>música fúnebre</b> costuma ter
+          valência e arousal baixos.
+        </p>
+        <div class="row" style="margin-top: 16px">
+          <button id="btnIntro">Começar</button>
+        </div>
+      </div>
+
+      <!-- TRIAL -->
+      <div id="scrTrial" class="card hidden">
+        <div class="between">
+          <span class="pill" id="tProg">Faixa 1</span>
+          <span class="pill mod" id="tMod"></span>
+        </div>
+        <div class="progressbar"><i id="tBar"></i></div>
+
+        <div id="tAudio" class="audio-box hidden">
+          <button class="play" id="btnPlay">▶</button>
+          <div class="progressbar" style="margin-top: 14px">
+            <i id="aBar"></i>
+          </div>
+          <div class="hint" id="aHint">
+            Ouça o trecho de ~30s antes de avaliar.
+          </div>
+          <audio id="au" preload="auto"></audio>
+        </div>
+
+        <div id="tLyricsWrap" class="hidden">
+          <label>Letra</label>
+          <div class="lyrics" id="tLyrics"></div>
+        </div>
+
+        <div class="sam">
+          <label>Valência</label>
+          <div class="scale" id="scaleV"></div>
+          <div class="ends">
+            <span>1 · muito negativa 😞</span><span>😄 muito positiva · 9</span>
+          </div>
+        </div>
+        <div class="sam">
+          <label>Arousal</label>
+          <div class="scale" id="scaleA"></div>
+          <div class="ends">
+            <span>1 · muito calma 😴</span><span>⚡ muito agitada · 9</span>
+          </div>
+        </div>
+
+        <label class="check"
+          ><input type="checkbox" id="tNao" /> Não conheço / nunca ouvi esta
+          música</label
+        >
+
+        <div class="between" style="margin-top: 18px">
+          <span class="hint" id="tSaveHint"></span>
+          <button id="btnNext" disabled>Próxima →</button>
+        </div>
+      </div>
+
+      <!-- FIM -->
+      <div id="scrDone" class="card hidden">
+        <h2 class="ok">✓ Semana concluída — obrigado!</h2>
+        <p id="doneMsg" class="muted"></p>
+        <div class="row">
+          <button id="btnDownload" class="ghost">
+            Baixar minhas respostas (JSON)
+          </button>
+        </div>
+        <div class="hint" id="doneSync"></div>
+      </div>
+    </div>
+
+    <script>
+      /* ============================ CONFIG ============================ */
+      const CONFIG = {
+        dataBase: "../data/", // onde estão weekly_blocks.json e participants.json
+        stimuliBase: "../", // prefixo dos caminhos audio_excerpt / lyrics_file
+        // Back-end: valida senha, recebe respostas e informa progresso.
+        //  - teste local (mock_backend.py):  "/api"
+        //  - produção (Apps Script):         cole aqui a URL do Web App
+        //  - vazio "":                       modo offline (usa participants.json, sem envio)
+        appsScriptUrl:
+          "https://script.google.com/macros/s/AKfycby2BoMCqnOPjh0W6XkbIN07zSP6-2WYYpd0MYk16OeabYgjPyF01JWHCurIubIZoV20VA/exec",
+      };
+      /* =============================================================== */
+
+      const $ = (s) => document.querySelector(s);
+      const show = (id) => {
+        for (const s of ["Login", "Demo", "Intro", "Trial", "Done"])
+          $("#scr" + s).classList.add("hidden");
+        $("#scr" + id).classList.remove("hidden");
+      };
+      const nowISO = () => new Date().toISOString();
+
+      let BLOCKS = null,
+        PARTS = null;
+      let S = null; // estado da sessão atual
+
+      // PRNG determinístico (mulberry32) para embaralhar a ordem por pid+semana
+      function seedFrom(str) {
+        let h = 1779033703 ^ str.length;
+        for (let i = 0; i < str.length; i++) {
+          h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+          h = (h << 13) | (h >>> 19);
+        }
+        return h >>> 0;
+      }
+      function mulberry32(a) {
+        return function () {
+          a |= 0;
+          a = (a + 0x6d2b79f5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      function shuffle(arr, rnd) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(rnd() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      const storeKey = (pid, sem) => `anot::${pid}::S${sem}`;
+      function save() {
+        try {
+          localStorage.setItem(storeKey(S.pid, S.semana), JSON.stringify(S));
+        } catch (e) {}
+      }
+      function load(pid, sem) {
+        try {
+          const r = localStorage.getItem(storeKey(pid, sem));
+          return r ? JSON.parse(r) : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      /* ---------- carregamento inicial ---------- */
+      async function boot() {
+        const sel = $("#inSemana");
+        try {
+          BLOCKS = await (
+            await fetch(CONFIG.dataBase + "weekly_blocks.json")
+          ).json();
+        } catch (e) {
+          $("#loginErr").textContent =
+            "Não consegui carregar weekly_blocks.json. Rode a partir de um servidor (não abrindo o arquivo direto).";
+        }
+        // participants.json só é necessário no modo offline (sem back-end)
+        if (!CONFIG.appsScriptUrl) {
+          try {
+            PARTS = await (
+              await fetch(CONFIG.dataBase + "participants.json")
+            ).json();
+          } catch (e) {}
+        }
+        const n = BLOCKS ? BLOCKS.n_semanas : 5;
+        sel.innerHTML = "";
+        for (let i = 1; i <= n; i++) {
+          const o = document.createElement("option");
+          o.value = i;
+          o.textContent = "Semana " + i;
+          sel.appendChild(o);
+        }
+        // pré-preenche via URL: ?pid=P01&semana=1
+        const q = new URLSearchParams(location.search);
+        if (q.get("pid")) $("#inPid").value = q.get("pid");
+        if (q.get("semana")) sel.value = q.get("semana");
+        flushOutbox();
+      }
+
+      /* ---------- login ---------- */
+      $("#btnLogin").onclick = async () => {
+        const pid = $("#inPid").value.trim();
+        const semana = parseInt($("#inSemana").value, 10);
+        const err = $("#loginErr");
+        err.textContent = "";
+        if (!pid) {
+          err.textContent = "Digite a senha recebida.";
+          return;
+        }
+
+        // autorização: back-end valida a senha; sem back-end, usa participants.json (offline)
+        let modalidade = null;
+        if (CONFIG.appsScriptUrl) {
+          try {
+            const r = await fetch(
+              CONFIG.appsScriptUrl +
+                "?action=auth&pid=" +
+                encodeURIComponent(pid),
+            );
+            const j = await r.json();
+            if (!j.ok) {
+              err.textContent =
+                "Senha não autorizada. Verifique a senha que você recebeu.";
+              return;
+            }
+            modalidade = j.modalidade;
+          } catch (e) {
+            err.textContent =
+              "Não consegui validar a senha (back-end fora do ar?).";
+            return;
+          }
+        } else {
+          if (!PARTS || !(pid in PARTS)) {
+            err.textContent = "Senha não encontrada.";
+            return;
+          }
+          modalidade = PARTS[pid];
+        }
+
+        // recupera sessão salva ou cria nova
+        S = load(pid, semana);
+        if (!S) {
+          let faixas = (BLOCKS.semanas[String(semana)] || []).slice();
+          // isolamento: letra/completa não recebem instrumentais (sem letra)
+          if (modalidade !== "melodia")
+            faixas = faixas.filter((f) => f.tem_letra === "sim");
+          const rnd = mulberry32(seedFrom(pid + "|" + semana));
+          faixas = shuffle(faixas, rnd);
+          S = {
+            pid,
+            semana,
+            modalidade,
+            coletadoEm: nowISO(),
+            demografia: loadDemo(pid),
+            respostas: [],
+            idx: 0,
+            faixas,
+          };
+        }
+        S.modalidade = modalidade; // garante travamento mesmo se lista mudar
+
+        // RETOMAR: back-end diz quais faixas ja foram avaliadas (funciona ate em outro navegador)
+        S.jaFeitas = 0;
+        if (CONFIG.appsScriptUrl) {
+          try {
+            const r = await fetch(
+              CONFIG.appsScriptUrl +
+                "?action=progress&pid=" +
+                encodeURIComponent(pid) +
+                "&semana=" +
+                semana,
+            );
+            const done = new Set((await r.json()).done || []);
+            S.respostas.forEach((x) => done.add(x.trackId)); // soma o que já está local
+            const prox = S.faixas.findIndex((f) => !done.has(f.id));
+            S.idx = prox < 0 ? S.faixas.length : prox; // pula as já feitas
+            S.jaFeitas = done.size;
+          } catch (e) {}
+        }
+        save();
+        if (!S.demografia) {
+          show("Demo");
+        } else {
+          startIntro();
+        }
+      };
+
+      /* ---------- demografia (uma vez por pid) ---------- */
+      const demoKey = (pid) => `anot::demo::${pid}`;
+      function loadDemo(pid) {
+        try {
+          const r = localStorage.getItem(demoKey(pid));
+          return r ? JSON.parse(r) : null;
+        } catch (e) {
+          return null;
+        }
+      }
+      $("#btnDemo").onclick = () => {
+        const d = {
+          nome: $("#dNome").value.trim(),
+          idade: $("#dIdade").value.trim(),
+          familiaridade: $("#dFam").value,
+          musico: $("#dMusico").value,
+        };
+        const err = $("#demoErr");
+        err.textContent = "";
+        if (!d.nome || !d.idade || !d.familiaridade || !d.musico) {
+          err.textContent = "Preencha todos os campos.";
+          return;
+        }
+        localStorage.setItem(demoKey(S.pid), JSON.stringify(d));
+        S.demografia = d;
+        save();
+        push({ type: "demografia", pid: S.pid, ...d, coletadoEm: nowISO() });
+        startIntro();
+      };
+
+      /* ---------- intro ---------- */
+      function startIntro() {
+        const nomes = {
+          letra: "Você avalia apenas a LETRA em texto (sem áudio).",
+          melodia:
+            "Você avalia apenas a MELODIA/instrumental (sem voz, sem letra).",
+          completa:
+            "Você avalia a MÚSICA COMPLETA cantada (áudio original, sem texto).",
+        };
+        let msg = "<b>Sua modalidade:</b> " + nomes[S.modalidade];
+        if (S.jaFeitas > 0 && S.idx < S.faixas.length)
+          msg +=
+            "<br><span class='ok'>✓ Você já avaliou " +
+            S.jaFeitas +
+            " faixa(s) nesta semana — vamos continuar de onde você parou.</span>";
+        else if (S.jaFeitas > 0 && S.idx >= S.faixas.length)
+          msg += "<br><span class='ok'>✓ Você já concluiu esta semana.</span>";
+        $("#introMod").innerHTML = msg;
+        show("Intro");
+      }
+      $("#btnIntro").onclick = () => {
+        if (S.idx >= S.faixas.length) {
+          finish();
+        } else {
+          show("Trial");
+          renderTrial();
+        }
+      };
+
+      /* ---------- construção das escalas SAM 1..9 ---------- */
+      function buildScale(container, name) {
+        container.innerHTML = "";
+        for (let v = 1; v <= 9; v++) {
+          const wrap = document.createElement("div");
+          wrap.className = "opt";
+          const inp = document.createElement("input");
+          inp.type = "radio";
+          inp.name = name;
+          inp.id = name + v;
+          inp.value = v;
+          const lab = document.createElement("label");
+          lab.htmlFor = name + v;
+          lab.textContent = v;
+          inp.onchange = onAnswerChange;
+          wrap.appendChild(inp);
+          wrap.appendChild(lab);
+          container.appendChild(wrap);
+        }
+      }
+
+      /* ---------- trial ---------- */
+      let listenMs = 0,
+        listened = false,
+        listenTimer = null;
+      function renderTrial() {
+        const f = S.faixas[S.idx];
+        $("#tProg").textContent = `Faixa ${S.idx + 1} de ${S.faixas.length}`;
+        $("#tMod").textContent = "modalidade: " + S.modalidade;
+        $("#tBar").style.width = (100 * S.idx) / S.faixas.length + "%";
+
+        buildScale($("#scaleV"), "valencia");
+        buildScale($("#scaleA"), "arousal");
+        $("#tNao").checked = false;
+        listened = false;
+        listenMs = 0;
+
+        const useAudio =
+          S.modalidade === "melodia" || S.modalidade === "completa";
+        const useLyrics = S.modalidade === "letra"; // completa = musica cantada, sem texto
+        $("#tAudio").classList.toggle("hidden", !useAudio);
+        $("#tLyricsWrap").classList.toggle("hidden", !useLyrics);
+
+        if (useAudio) {
+          // melodia -> instrumental (sem vocais); completa -> mix completo
+          const audioPath =
+            S.modalidade === "melodia"
+              ? f.audio_melodia || f.audio_excerpt
+              : f.audio_excerpt;
+          const au = $("#au");
+          au.src = CONFIG.stimuliBase + audioPath;
+          au.load();
+          $("#aBar").style.width = "0";
+          $("#btnPlay").textContent = "▶";
+          $("#aHint").innerHTML = "Ouça o trecho de ~30s antes de avaliar.";
+        }
+        if (useLyrics) {
+          loadLyrics(f);
+        }
+        $("#tSaveHint").textContent = "";
+        $("#btnNext").disabled = true;
+        updateNext();
+      }
+
+      async function loadLyrics(f) {
+        const box = $("#tLyrics");
+        box.textContent = "carregando letra…";
+        // prefere a letra casada ao trecho; cai na letra inteira se faltar/vazia
+        const fontes = [f.lyrics_excerpt, f.lyrics_file].filter(Boolean);
+        for (const src of fontes) {
+          try {
+            const r = await fetch(CONFIG.stimuliBase + src);
+            if (!r.ok) continue;
+            const t = (await r.text()).trim();
+            if (t) {
+              box.textContent = t;
+              return;
+            }
+          } catch (e) {}
+        }
+        box.textContent = "(letra não encontrada)";
+      }
+
+      /* player 30s com gate de escuta — botao reflete o estado REAL do audio */
+      $("#btnPlay").onclick = () => {
+        const au = $("#au");
+        if (au.paused) {
+          const p = au.play();
+          if (p && p.catch)
+            p.catch((err) => {
+              $("#aHint").innerHTML =
+                "<span class='warn'>Não consegui tocar o áudio (" +
+                err.name +
+                "). Confira o volume do sistema e as permissões de som do navegador, e tente de novo.</span>";
+            });
+        } else {
+          au.pause();
+        }
+      };
+      $("#au").addEventListener("timeupdate", () => {
+        const au = $("#au");
+        if (au.duration)
+          $("#aBar").style.width = (100 * au.currentTime) / au.duration + "%";
+      });
+      $("#au").addEventListener("play", () => {
+        $("#btnPlay").textContent = "⏸";
+        listenTimer = setInterval(() => {
+          listenMs += 250;
+        }, 250);
+      });
+      $("#au").addEventListener("pause", () => {
+        $("#btnPlay").textContent = "▶";
+        clearInterval(listenTimer);
+      });
+      $("#au").addEventListener("ended", () => {
+        clearInterval(listenTimer);
+        listened = true;
+        $("#btnPlay").textContent = "▶";
+        $("#aHint").innerHTML =
+          "<span class='ok'>✓ Trecho ouvido. Pode avaliar.</span>";
+        updateNext();
+      });
+
+      function onAnswerChange() {
+        updateNext();
+      }
+      function currentVals() {
+        const v = document.querySelector("input[name=valencia]:checked");
+        const a = document.querySelector("input[name=arousal]:checked");
+        return { v: v ? +v.value : null, a: a ? +a.value : null };
+      }
+      function updateNext() {
+        const { v, a } = currentVals();
+        const useAudio =
+          S.modalidade === "melodia" || S.modalidade === "completa";
+        const gateOk = !useAudio || listened;
+        $("#btnNext").disabled = !(v && a && gateOk);
+        if (useAudio && !listened)
+          $("#tSaveHint").textContent = "Ouça o trecho inteiro para liberar.";
+        else if (!(v && a))
+          $("#tSaveHint").textContent = "Marque valência e arousal.";
+        else $("#tSaveHint").textContent = "";
+      }
+
+      $("#btnNext").onclick = () => {
+        const f = S.faixas[S.idx];
+        const { v, a } = currentVals();
+        const resp = {
+          trackId: f.id,
+          ordem: S.idx,
+          valencia: v,
+          arousal: a,
+          naoConheco: $("#tNao").checked ? 1 : 0,
+          listenMs,
+          respondidoEm: nowISO(),
+        };
+        // substitui se já existir (reentrada), senão adiciona
+        const ex = S.respostas.findIndex((r) => r.trackId === f.id);
+        if (ex >= 0) S.respostas[ex] = resp;
+        else S.respostas.push(resp);
+        S.idx++;
+        save();
+        // envia a resposta individual (não perde informação se sair no meio)
+        push({
+          type: "resposta",
+          pid: S.pid,
+          modalidade: S.modalidade,
+          semana: S.semana,
+          ...resp,
+          ...(S.demografia || {}),
+          enviadoEm: nowISO(),
+        });
+        if (S.idx >= S.faixas.length) {
+          finish();
+        } else {
+          renderTrial();
+        }
+      };
+
+      /* ---------- fim ---------- */
+      function finish() {
+        S.finalizadoEm = nowISO();
+        save();
+        push({
+          type: "fim",
+          pid: S.pid,
+          modalidade: S.modalidade,
+          semana: S.semana,
+          total: S.respostas.length,
+          coletadoEm: nowISO(),
+        });
+        $("#tBar") && ($("#tBar").style.width = "100%");
+        $("#doneMsg").textContent =
+          `Você avaliou ${S.respostas.length} faixa(s) na semana ${S.semana} (modalidade ${S.modalidade}).`;
+        flushOutbox().then(updateDoneSync);
+        show("Done");
+      }
+      function updateDoneSync() {
+        const n = outbox().length;
+        $("#doneSync").innerHTML =
+          n === 0
+            ? "<span class='ok'>✓ Todas as respostas foram enviadas ao servidor.</span>"
+            : `<span class='warn'>⚠ ${n} resposta(s) ainda não sincronizadas — mantenha esta aba aberta com internet, ou baixe o JSON e envie ao pesquisador.</span>`;
+      }
+      $("#btnDownload").onclick = () => {
+        const blob = new Blob([JSON.stringify(exportJSON(), null, 2)], {
+          type: "application/json",
+        });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `anotacao_${S.pid}_S${S.semana}.json`;
+        a.click();
+      };
+      function exportJSON() {
+        return {
+          pid: S.pid,
+          modalidade: S.modalidade,
+          semana: S.semana,
+          demografia: S.demografia,
+          coletadoEm: S.coletadoEm,
+          finalizadoEm: S.finalizadoEm || null,
+          respostas: S.respostas,
+        };
+      }
+
+      /* ---------- fila de envio (outbox) resiliente ---------- */
+      const OUTBOX = "anot::outbox";
+      function outbox() {
+        try {
+          return JSON.parse(localStorage.getItem(OUTBOX) || "[]");
+        } catch (e) {
+          return [];
+        }
+      }
+      function setOutbox(a) {
+        localStorage.setItem(OUTBOX, JSON.stringify(a));
+        setSync();
+      }
+      function push(obj) {
+        const a = outbox();
+        a.push({
+          ...obj,
+          _id: Date.now() + "-" + Math.random().toString(36).slice(2),
+        });
+        setOutbox(a);
+        flushOutbox();
+      }
+      function setSync() {
+        const n = outbox().length;
+        const el = $("#syncState");
+        if (!CONFIG.appsScriptUrl) {
+          el.textContent = "modo offline";
+          el.style.color = "var(--muted)";
+          return;
+        }
+        el.textContent = n === 0 ? "sincronizado ✓" : `enviando (${n})…`;
+        el.style.color = n === 0 ? "var(--accent2)" : "var(--accent)";
+      }
+      let flushing = false;
+      async function flushOutbox() {
+        if (flushing || !CONFIG.appsScriptUrl) {
+          setSync();
+          return;
+        }
+        flushing = true;
+        let a = outbox();
+        while (a.length) {
+          const item = a[0];
+          try {
+            await fetch(CONFIG.appsScriptUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(item),
+            });
+            a = outbox();
+            a.shift();
+            setOutbox(a); // sucesso (no-cors: assumido)
+          } catch (e) {
+            break;
+          } // sem internet: tenta depois
+          a = outbox();
+        }
+        flushing = false;
+        setSync();
+      }
+      window.addEventListener("online", flushOutbox);
+      setInterval(flushOutbox, 20000);
+
+      boot();
+    </script>
+  </body>
+</html>

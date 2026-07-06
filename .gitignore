@@ -1,0 +1,38 @@
+# ===== NUNCA publicar: senhas e dados coletados =====
+data/participants.json
+data/participants.csv
+data/respostas_local.csv
+data/respostas.csv
+data/respostas_simuladas.csv
+data/eventos_local.jsonl
+data/results/
+
+# ===== Áudio bruto (copyright + pesado) — não versionar =====
+Dataset/
+
+# ===== Planilhas/logs de trabalho interno =====
+data/excerpt_plan.csv
+data/letra_nivel.csv
+data/dataset_files.txt
+data/_*.txt
+data/*.log
+
+# ===== Ambiente e temporários =====
+venv/
+__pycache__/
+*.pyc
+.claude/
+_pdfpage_*.png
+
+# ===== NAO e do site: publicar so o essencial =====
+# (Artigos = PDFs com copyright; scripts = pipeline que nao roda no site)
+Artigos/
+scripts/
+requirements.txt
+libro.py
+features_musicais_extraidas.csv
+data/audio_map.csv
+data/corpus_clean.csv
+data/corpus_musica_brasileira_v2.xlsx
+data/weekly_blocks.csv
+# Mantidos p/ o site: tools/, data/weekly_blocks.json, stimuli/, robots.txt, *.md
