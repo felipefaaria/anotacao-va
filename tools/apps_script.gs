@@ -23,9 +23,11 @@ const ABA_PART = "participantes";
 const ABA_RESP = "respostas";
 const ABA_META = "eventos";
 
+// "escala" fica por ULTIMO de proposito: planilhas que ja tem o cabecalho antigo
+// continuam alinhadas. valencia/arousal = categoria 1..5 quando escala == "cat5".
 const COLS_RESP = ["enviadoEm","pid","modalidade","semana","trackId","ordem",
                    "valencia","arousal","naoConheco","listenMs",
-                   "nome","idade","familiaridade","musico","respondidoEm"];
+                   "nome","idade","familiaridade","musico","respondidoEm","escala"];
 const COLS_META = ["recebidoEm","type","pid","modalidade","semana","payload"];
 
 /* acha a aba de participantes mesmo com maiúsculas/espaços diferentes */

@@ -36,3 +36,10 @@ data/corpus_clean.csv
 data/corpus_musica_brasileira_v2.xlsx
 data/weekly_blocks.csv
 # Mantidos p/ o site: tools/, data/weekly_blocks.json, stimuli/, robots.txt, *.md
+
+# teste de validacao: arquivos PRIVADOS (senhas, mapa codigo->faixa, respostas locais)
+data/validacao_mapa_itens.csv
+data/validacao_participantes.*
+data/validacao_respostas_local.csv
+data/validacao_eventos_local.jsonl
+tools/validacao_local.html

@@ -8,7 +8,12 @@ Pipeline de coleta das anotações de **Valência–Arousal** com desenho
 - **3 modalidades** (a pessoa é sorteada para uma e permanece nela):
   `letra` · `melodia` · `completa` (melodia+letra).
 - **Estímulo**: excerto de ~30s centrado no refrão.
-- **Escala**: SAM 1–9 na coleta; conversão para [-1, 1] só na análise.
+- **Escala**: 5 categorias ordinais, **pensadas para validar** (não para anotar):
+  valência *muito negativa · negativa · neutra · positiva · muito positiva*; arousal
+  *muito calma · calma · neutra · agitada · muito agitada* (gravadas como 1..5, com
+  `escala=cat5`). A instrução deixa explícito que se julga a emoção **expressa** pela
+  música, não a sentida. Conversão para [-1, 1] só na análise (`scripts/scale.py`).
+  Coleta antiga em SAM 1–9 continua legível: linhas sem a coluna `escala` valem `sam9`.
 - **5 blocos semanais**: ~10–11 faixas por semana, estratificados por quadrante/era.
 - **Instrumentais** (`INS01/02/03`, `tem_letra=nao`): só entram para a modalidade
   `melodia`. Quem faz `letra`/`completa` avalia 50 faixas; `melodia` avalia 53.
@@ -33,7 +38,7 @@ python scripts/assign_participants.py --n 30          # ou --pids lista.txt
 
 App estático, sem dependências. Isola por modalidade (letra vê só letra; melodia
 tem player e não vê letra; completa vê os dois), player com **gate de escuta**,
-SAM 1–9, âncoras Festa/Construção, **autosave em localStorage** (recupera ao
+escala de 5 categorias (cat5), pergunta por modalidade e aviso "emoção expressa, não sentida", exemplos Festa/Fúnebre, **autosave em localStorage** (chave `anot5::`, separada da versão SAM) (recupera ao
 recarregar) e **fila de envio** ao Google Sheets (nada se perde).
 
 Link por participante: `.../tools/anotacao.html?pid=P01&semana=1`
@@ -175,14 +180,14 @@ Apps Script grava) e produz em `data/results/`:
 - `quadrantes.csv` — quadrante estimado × prior + F1 macro
 - `plano_va.png`, `dissociacao.png`, `concordancia.png`
 
-`scale.py` é a fonte única da conversão SAM 1–9 → [−1,1] (só na análise).
+`scale.py` é a fonte única da conversão (cat5 e SAM 1–9) → [−1,1] (só na análise). A concordância usa Krippendorff **ordinal** para `cat5` e intervalar para `sam9`.
 
 ```bash
 # com dados reais: baixe a aba 'respostas' (Arquivo > Download > CSV) para data/respostas.csv
 python scripts/aggregate_annotations.py
 
 # para ver a saída ANTES da coleta, com dados fictícios:
-python scripts/simulate_annotations.py
+python scripts/simulate_annotations.py            # padrão cat5 (--escala sam9 para a antiga)
 python scripts/aggregate_annotations.py --input data/respostas_simuladas.csv
 ```
 
@@ -192,3 +197,29 @@ python scripts/aggregate_annotations.py --input data/respostas_simuladas.csv
    refrão no trecho? instrumental sem voz vazando? Corrija no plano e re-rode
    `cut_excerpts.py` / `separate_vocals.py --only <id> --overwrite`.
 2. **Coletar** (recrutar, publicar o link, plugar o Apps Script) e então rodar o agregador.
+
+## Teste de validação humana (só "música completa") — `tools/validacao.html`
+
+Teste confirmatório do caminho 1: nas faixas em que o quadrante do áudio sozinho difere do da
+fusão (LF1+LF3), quem concorda mais com a avaliação humana da música completa? A seleção das
+faixas vem do projeto principal (`tcc_mer/data/outputs/validacao_selecao.csv`, protocolo em
+`validacao_protocolo.json`). Este formulário é **isolado** do estudo anterior (SAM 1–9).
+
+- 1 modalidade (completa, áudio original com voz = o MESMO arquivo de prévia que o modelo analisou,
+  normalizado a -16 LUFS com fade de 0,2 s), escala `cat5`, pergunta "emoção expressa, não sentida".
+- Cada pessoa recebe um bloco (A ou B, 25 faixas balanceadas) + 4 âncoras + 3 repetições (consistência
+  intra-avaliador, ≥ 8 itens depois do original) = 32 itens, ~20 min, em ordem embaralhada por código.
+- Itens com **códigos opacos** (V01.., A1..): o avaliador não vê ano/título/grupo. O mapa
+  código→faixa fica em `data/validacao_mapa_itens.csv` (PRIVADO).
+- Pergunta "você já conhecia a música?" (não / já ouvi / conheço bem) por item, como covariável.
+- Sem tela de consentimento (envio só a pessoas específicas); exige 18+ e falante nativo de pt-BR.
+- A avaliação libera após **10 s de reprodução** do áudio (tempo real tocando; o ideal é ouvir até o fim).
+
+```bash
+python scripts/build_validacao.py --participantes 12     # blocos, códigos, áudios, senhas
+python scripts/mock_backend_validacao.py                 # teste local (copie validacao.html com appsScriptUrl="/api")
+```
+Produção: planilha NOVA + `tools/apps_script_validacao.gs` (aba `participantes` com
+`data/validacao_participantes.csv`), colar a URL em `CONFIG.appsScriptUrl` de `tools/validacao.html`.
+**Não publicar:** `validacao_mapa_itens.csv`, `validacao_participantes.*` e `validacao_respostas_local.csv`.
+Publicar: `tools/validacao.html`, `data/validacao_blocos.json`, `stimuli_validacao/`.

@@ -1,0 +1,229 @@
+{
+ "versao": "validacao-1",
+ "escala": "cat5",
+ "n_repeticoes": 3,
+ "itens": {
+  "A": [
+   {
+    "codigo": "V02",
+    "audio": "stimuli_validacao/audio/V02.mp3"
+   },
+   {
+    "codigo": "V03",
+    "audio": "stimuli_validacao/audio/V03.mp3"
+   },
+   {
+    "codigo": "V04",
+    "audio": "stimuli_validacao/audio/V04.mp3"
+   },
+   {
+    "codigo": "V07",
+    "audio": "stimuli_validacao/audio/V07.mp3"
+   },
+   {
+    "codigo": "V10",
+    "audio": "stimuli_validacao/audio/V10.mp3"
+   },
+   {
+    "codigo": "V13",
+    "audio": "stimuli_validacao/audio/V13.mp3"
+   },
+   {
+    "codigo": "V14",
+    "audio": "stimuli_validacao/audio/V14.mp3"
+   },
+   {
+    "codigo": "V15",
+    "audio": "stimuli_validacao/audio/V15.mp3"
+   },
+   {
+    "codigo": "V16",
+    "audio": "stimuli_validacao/audio/V16.mp3"
+   },
+   {
+    "codigo": "V17",
+    "audio": "stimuli_validacao/audio/V17.mp3"
+   },
+   {
+    "codigo": "V18",
+    "audio": "stimuli_validacao/audio/V18.mp3"
+   },
+   {
+    "codigo": "V23",
+    "audio": "stimuli_validacao/audio/V23.mp3"
+   },
+   {
+    "codigo": "V26",
+    "audio": "stimuli_validacao/audio/V26.mp3"
+   },
+   {
+    "codigo": "V27",
+    "audio": "stimuli_validacao/audio/V27.mp3"
+   },
+   {
+    "codigo": "V29",
+    "audio": "stimuli_validacao/audio/V29.mp3"
+   },
+   {
+    "codigo": "V34",
+    "audio": "stimuli_validacao/audio/V34.mp3"
+   },
+   {
+    "codigo": "V35",
+    "audio": "stimuli_validacao/audio/V35.mp3"
+   },
+   {
+    "codigo": "V36",
+    "audio": "stimuli_validacao/audio/V36.mp3"
+   },
+   {
+    "codigo": "V37",
+    "audio": "stimuli_validacao/audio/V37.mp3"
+   },
+   {
+    "codigo": "V38",
+    "audio": "stimuli_validacao/audio/V38.mp3"
+   },
+   {
+    "codigo": "V39",
+    "audio": "stimuli_validacao/audio/V39.mp3"
+   },
+   {
+    "codigo": "V41",
+    "audio": "stimuli_validacao/audio/V41.mp3"
+   },
+   {
+    "codigo": "V44",
+    "audio": "stimuli_validacao/audio/V44.mp3"
+   },
+   {
+    "codigo": "V46",
+    "audio": "stimuli_validacao/audio/V46.mp3"
+   },
+   {
+    "codigo": "V47",
+    "audio": "stimuli_validacao/audio/V47.mp3"
+   }
+  ],
+  "B": [
+   {
+    "codigo": "V01",
+    "audio": "stimuli_validacao/audio/V01.mp3"
+   },
+   {
+    "codigo": "V05",
+    "audio": "stimuli_validacao/audio/V05.mp3"
+   },
+   {
+    "codigo": "V06",
+    "audio": "stimuli_validacao/audio/V06.mp3"
+   },
+   {
+    "codigo": "V08",
+    "audio": "stimuli_validacao/audio/V08.mp3"
+   },
+   {
+    "codigo": "V09",
+    "audio": "stimuli_validacao/audio/V09.mp3"
+   },
+   {
+    "codigo": "V11",
+    "audio": "stimuli_validacao/audio/V11.mp3"
+   },
+   {
+    "codigo": "V12",
+    "audio": "stimuli_validacao/audio/V12.mp3"
+   },
+   {
+    "codigo": "V19",
+    "audio": "stimuli_validacao/audio/V19.mp3"
+   },
+   {
+    "codigo": "V20",
+    "audio": "stimuli_validacao/audio/V20.mp3"
+   },
+   {
+    "codigo": "V21",
+    "audio": "stimuli_validacao/audio/V21.mp3"
+   },
+   {
+    "codigo": "V22",
+    "audio": "stimuli_validacao/audio/V22.mp3"
+   },
+   {
+    "codigo": "V24",
+    "audio": "stimuli_validacao/audio/V24.mp3"
+   },
+   {
+    "codigo": "V25",
+    "audio": "stimuli_validacao/audio/V25.mp3"
+   },
+   {
+    "codigo": "V28",
+    "audio": "stimuli_validacao/audio/V28.mp3"
+   },
+   {
+    "codigo": "V30",
+    "audio": "stimuli_validacao/audio/V30.mp3"
+   },
+   {
+    "codigo": "V31",
+    "audio": "stimuli_validacao/audio/V31.mp3"
+   },
+   {
+    "codigo": "V32",
+    "audio": "stimuli_validacao/audio/V32.mp3"
+   },
+   {
+    "codigo": "V33",
+    "audio": "stimuli_validacao/audio/V33.mp3"
+   },
+   {
+    "codigo": "V40",
+    "audio": "stimuli_validacao/audio/V40.mp3"
+   },
+   {
+    "codigo": "V42",
+    "audio": "stimuli_validacao/audio/V42.mp3"
+   },
+   {
+    "codigo": "V43",
+    "audio": "stimuli_validacao/audio/V43.mp3"
+   },
+   {
+    "codigo": "V45",
+    "audio": "stimuli_validacao/audio/V45.mp3"
+   },
+   {
+    "codigo": "V48",
+    "audio": "stimuli_validacao/audio/V48.mp3"
+   },
+   {
+    "codigo": "V49",
+    "audio": "stimuli_validacao/audio/V49.mp3"
+   },
+   {
+    "codigo": "V50",
+    "audio": "stimuli_validacao/audio/V50.mp3"
+   }
+  ]
+ },
+ "ancoras": [
+  {
+   "codigo": "A1",
+   "audio": "stimuli_validacao/audio/A1.mp3"
+  },
+  {
+   "codigo": "A2",
+   "audio": "stimuli_validacao/audio/A2.mp3"
+  },
+  {
+   "codigo": "A3",
+   "audio": "stimuli_validacao/audio/A3.mp3"
+  },
+  {
+   "codigo": "A4",
+   "audio": "stimuli_validacao/audio/A4.mp3"
+  }
+ ]
+}

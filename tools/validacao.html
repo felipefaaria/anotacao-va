@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anotação VA — Música Brasileira</title>
+    <meta name="robots" content="noindex" />
+    <title>Avaliação de emoção em música brasileira</title>
     <style>
       :root {
         --bg: #f4f6f9;
@@ -23,6 +24,7 @@
         margin: 0;
         background: var(--bg);
         color: var(--fg);
+        line-height: 1.5;
         font-family:
           system-ui,
           -apple-system,
@@ -30,7 +32,6 @@
           Roboto,
           Arial,
           sans-serif;
-        line-height: 1.5;
       }
       .wrap {
         max-width: 760px;
@@ -114,10 +115,6 @@
         border: 1px solid var(--border);
         color: var(--muted);
       }
-      .pill.mod {
-        color: var(--accent);
-        border-color: var(--accent);
-      }
       .progressbar {
         height: 6px;
         background: var(--card2);
@@ -130,16 +127,6 @@
         height: 100%;
         background: var(--accent);
         width: 0;
-      }
-      .lyrics {
-        white-space: pre-wrap;
-        background: var(--card2);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 16px;
-        max-height: 320px;
-        overflow: auto;
-        font-size: 15px;
       }
       .sam {
         margin: 10px 0 4px;
@@ -171,20 +158,6 @@
         line-height: 1.2;
         background: var(--card2);
         transition: 0.12s;
-      }
-      .callout {
-        background: #fff7e0;
-        border: 1px solid #f0d98a;
-        border-radius: 10px;
-        padding: 12px 14px;
-        margin: 12px 0;
-        font-size: 14px;
-        color: var(--fg);
-      }
-      .callout.small {
-        font-size: 13px;
-        padding: 9px 12px;
-        margin: 12px 0 6px;
       }
       .sam .opt input:checked + label {
         background: var(--accent);
@@ -224,6 +197,40 @@
       .ok {
         color: var(--accent2);
       }
+      .callout {
+        background: #fff7e0;
+        border: 1px solid #f0d98a;
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin: 12px 0;
+        font-size: 14px;
+        color: var(--fg);
+      }
+      .callout.small {
+        font-size: 13px;
+        padding: 9px 12px;
+        margin: 12px 0 6px;
+      }
+      .todo {
+        background: #ffe9e9;
+        border-color: #e9a3a3;
+      }
+      .radios label {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin: 6px 0;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        background: var(--card2);
+        color: var(--fg);
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .radios input {
+        width: auto;
+      }
       .check {
         display: flex;
         gap: 8px;
@@ -241,15 +248,6 @@
       .synced {
         font-size: 12px;
       }
-      a {
-        color: var(--accent);
-      }
-      code {
-        background: var(--card2);
-        padding: 1px 6px;
-        border-radius: 5px;
-      }
-      /* telas estreitas (celular): 5 categorias lado a lado, texto menor */
       @media (max-width: 430px) {
         .wrap {
           padding: 10px;
@@ -264,7 +262,7 @@
           min-height: 62px;
           padding: 8px 1px;
           font-size: 12px;
-        } /* alvo de toque bem alto */
+        }
         .ends {
           font-size: 11px;
         }
@@ -277,57 +275,48 @@
   <body>
     <div class="wrap">
       <div class="between">
-        <h1>Anotação Valência–Arousal</h1>
+        <h1>Avaliação de emoção em música brasileira</h1>
         <span id="syncState" class="pill synced">•</span>
       </div>
-      <div class="muted">Percepção emocional de música brasileira — TCC</div>
+      <div class="muted">Pesquisa de TCC — Felipe Silva Faria</div>
 
       <!-- LOGIN -->
       <div id="scrLogin" class="card">
         <h2>Identificação</h2>
-        <div class="hint" style="margin-top: -4px; margin-bottom: 6px">
-          Pesquisa conduzida por <b>Felipe Silva Faria</b> — TCC
-        </div>
-        <label>Senha recebida</label>
+        <label>Código de acesso recebido</label>
         <input
           type="text"
           id="inPid"
-          placeholder="digite a senha que você recebeu"
+          placeholder="digite o código que você recebeu"
           autocomplete="off"
         />
-        <label>Semana</label>
-        <select id="inSemana"></select>
         <div id="loginErr" class="hint warn"></div>
         <div class="row" style="margin-top: 16px">
           <button id="btnLogin">Entrar</button>
         </div>
         <div class="hint">
-          Sua modalidade é sorteada e fixa em todas as semanas. Se recarregar a
-          página, seu progresso é recuperado.
+          Se recarregar a página ou voltar mais tarde, seu progresso é
+          recuperado.
         </div>
       </div>
 
-      <!-- DEMOGRAFIA -->
+      <!-- SOBRE VOCÊ -->
       <div id="scrDemo" class="card hidden">
-        <h2>
-          Sobre você
-          <span class="muted" style="font-weight: 400">(só uma vez)</span>
-        </h2>
-        <label>Nome completo</label>
-        <input
-          type="text"
-          id="dNome"
-          placeholder="seu nome"
-          autocomplete="off"
-        />
+        <h2>Sobre você <span class="muted">(só uma vez)</span></h2>
         <label>Idade</label>
         <input
           type="number"
           id="dIdade"
-          min="12"
+          min="18"
           max="99"
           placeholder="ex.: 24"
         />
+        <label>Português brasileiro é a sua língua nativa?</label>
+        <select id="dNativo">
+          <option value="">—</option>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
         <label
           >Familiaridade com música brasileira (1 = nenhuma, 5 = muita)</label
         >
@@ -353,41 +342,46 @@
         </div>
       </div>
 
-      <!-- INTRO / CALIBRAÇÃO -->
+      <!-- COMO AVALIAR -->
       <div id="scrIntro" class="card hidden">
         <h2>Como avaliar</h2>
-        <p class="muted" id="introMod"></p>
+        <p class="muted" id="introMsg"></p>
         <div class="callout">
-          <b>Importante:</b> avalie a emoção que a música
-          <b>EXPRESSA</b> — a emoção que ela transmite — e
-          <b>não</b> a que <u>você sente</u> ao ouvir. Você pode adorar uma
-          música triste, ou estar de bom humor ouvindo uma música sombria: o que
-          importa aqui é o que a música em si comunica, não o seu estado nem o
-          seu gosto.
+          <b>Importante:</b> avalie a emoção que a música <b>EXPRESSA</b> — a
+          emoção que ela transmite — e <b>não</b> a que <u>você sente</u> ao
+          ouvir. Você pode adorar uma música triste, ou estar de bom humor
+          ouvindo uma música sombria: o que importa aqui é o que a música em si
+          comunica, não o seu estado nem o seu gosto.
         </div>
         <p>
-          Para cada faixa, escolha uma opção em cada uma das duas perguntas:
+          Para cada trecho, ouça (o ideal é até o fim; a avaliação libera após
+          10 s de áudio) e escolha uma opção em cada pergunta:
         </p>
         <ul class="muted">
           <li>
             <b>Valência</b> — a emoção expressa é <i>agradável</i> ou
-            <i>desagradável</i>? Opções: <i>muito negativa, negativa, neutra,
-            positiva, muito positiva</i>. (Positiva: alegre, agradável.
-            Negativa: triste, tensa, desagradável.)
+            <i>desagradável</i>? Opções:
+            <i>muito negativa, negativa, neutra, positiva, muito positiva</i>.
+            (Positiva: alegre, agradável. Negativa: triste, tensa,
+            desagradável.)
           </li>
           <li>
             <b>Arousal</b> — quão <i>calma</i> ou <i>agitada</i> é a emoção
-            expressa? Opções: <i>muito calma, calma, neutra, agitada, muito
-            agitada</i>. (Agitada: energética, intensa. Calma: tranquila,
-            suave. Não é o volume do som.)
+            expressa? Opções:
+            <i>muito calma, calma, neutra, agitada, muito agitada</i>. (Agitada:
+            energética, intensa. Calma: tranquila, suave. Não é o volume do
+            som.)
           </li>
         </ul>
         <p class="muted">
           Exemplos: uma música de <b>festa</b> expressa emoção
           <i>muito positiva</i> e <i>muito agitada</i>; uma música
           <b>fúnebre</b> expressa emoção <i>muito negativa</i> e <i>calma</i>.
-          Use <i>neutra</i> apenas quando a música não expressar uma direção
-          clara.
+          Use <i>neutra</i> apenas quando não houver uma direção clara.
+        </p>
+        <p class="muted">
+          Use fones de ouvido, se possível, em um ambiente silencioso. Você
+          também indicará se já conhecia a música.
         </p>
         <div class="row" style="margin-top: 16px">
           <button id="btnIntro">Começar</button>
@@ -396,30 +390,22 @@
 
       <!-- TRIAL -->
       <div id="scrTrial" class="card hidden">
-        <div class="between">
-          <span class="pill" id="tProg">Faixa 1</span>
-          <span class="pill mod" id="tMod"></span>
-        </div>
+        <div class="between"><span class="pill" id="tProg">Trecho 1</span></div>
         <div class="progressbar"><i id="tBar"></i></div>
 
-        <div id="tAudio" class="audio-box hidden">
+        <div class="audio-box">
           <button class="play" id="btnPlay">▶</button>
           <div class="progressbar" style="margin-top: 14px">
             <i id="aBar"></i>
           </div>
           <div class="hint" id="aHint">
-            Ouça o trecho de ~30s antes de avaliar.
+            Ouça pelo menos 10 s para liberar a avaliação.
           </div>
           <audio id="au" preload="auto"></audio>
         </div>
 
-        <div id="tLyricsWrap" class="hidden">
-          <label>Letra</label>
-          <div class="lyrics" id="tLyrics"></div>
-        </div>
-
         <div class="callout small">
-          <b id="tQuestion"></b><br />
+          <b>Que emoção esta música expressa?</b><br />
           Julgue a emoção que ela <b>expressa</b> — não como você se sente.
         </div>
         <div class="sam">
@@ -439,10 +425,21 @@
           </div>
         </div>
 
-        <label class="check"
-          ><input type="checkbox" id="tNao" /> Não conheço / nunca ouvi esta
-          música</label
-        >
+        <label>Você já conhecia esta música?</label>
+        <div class="radios" id="conhece">
+          <label
+            ><input type="radio" name="conhece" value="nao" /> Não
+            conheço</label
+          >
+          <label
+            ><input type="radio" name="conhece" value="ja_ouvi" /> Já ouvi, mas
+            não conheço bem</label
+          >
+          <label
+            ><input type="radio" name="conhece" value="conheco_bem" /> Conheço
+            bem</label
+          >
+        </div>
 
         <div class="between" style="margin-top: 18px">
           <span class="hint" id="tSaveHint"></span>
@@ -452,7 +449,7 @@
 
       <!-- FIM -->
       <div id="scrDone" class="card hidden">
-        <h2 class="ok">✓ Semana concluída — obrigado!</h2>
+        <h2 class="ok">✓ Concluído — muito obrigado!</h2>
         <p id="doneMsg" class="muted"></p>
         <div class="row">
           <button id="btnDownload" class="ghost">
@@ -466,16 +463,29 @@
     <script>
       /* ============================ CONFIG ============================ */
       const CONFIG = {
-        dataBase: "../data/", // onde estão weekly_blocks.json e participants.json
-        stimuliBase: "../", // prefixo dos caminhos audio_excerpt / lyrics_file
-        // Back-end: valida senha, recebe respostas e informa progresso.
-        //  - teste local (mock_backend.py):  "/api"
-        //  - produção (Apps Script):         cole aqui a URL do Web App
-        //  - vazio "":                       modo offline (usa participants.json, sem envio)
+        dataBase: "../data/",
+        stimuliBase: "../",
+        // Back-end: valida o código, recebe respostas e informa progresso.
+        //  - teste local (mock_backend_validacao.py): "/api"
+        //  - produção: URL do Web App do Apps Script (tools/apps_script_validacao.gs)
+        //  - vazio "": modo offline (usa validacao_participantes.json, sem envio)
         appsScriptUrl:
-          "https://script.google.com/macros/s/AKfycby2BoMCqnOPjh0W6XkbIN07zSP6-2WYYpd0MYk16OeabYgjPyF01JWHCurIubIZoV20VA/exec",
+          "https://script.google.com/macros/s/AKfycbzrrcTkrRs5RcNg8hIkuSXxrLm3cVjrfsXsPK-i2Nlpxo2YO04-qFDZzZQSBCRHQkStLQ/exec",
       };
       /* =============================================================== */
+      const ESCALA = "cat5";
+      const CATS = {
+        valencia: [
+          "Muito negativa",
+          "Negativa",
+          "Neutra",
+          "Positiva",
+          "Muito positiva",
+        ],
+        arousal: ["Muito calma", "Calma", "Neutra", "Agitada", "Muito agitada"],
+      };
+      const MIN_ESCUTA_MS = 10000; // libera a avaliação após 10 s de reprodução
+      const MIN_GAP_REPETICAO = 8; // a repetição aparece pelo menos 8 itens depois do original
 
       const $ = (s) => document.querySelector(s);
       const show = (id) => {
@@ -485,11 +495,10 @@
       };
       const nowISO = () => new Date().toISOString();
 
-      let BLOCKS = null,
-        PARTS = null;
-      let S = null; // estado da sessão atual
+      let BLOCOS = null,
+        PARTS = null,
+        S = null;
 
-      // PRNG determinístico (mulberry32) para embaralhar a ordem por pid+semana
       function seedFrom(str) {
         let h = 1779033703 ^ str.length;
         for (let i = 0; i < str.length; i++) {
@@ -516,146 +525,53 @@
         return a;
       }
 
-      // prefixo "anot5" separa o autosave da versão antiga (SAM 1-9) e evita misturar escalas
-      const storeKey = (pid, sem) => `anot5::${pid}::S${sem}`;
+      /* lista da pessoa: alvos do bloco + âncoras embaralhados; repetições (3 alvos) mais adiante */
+      function montarLista(pid, bloco) {
+        const rnd = mulberry32(seedFrom("validacao|" + pid));
+        const alvos = BLOCOS.itens[bloco].map((x) => ({
+          ...x,
+          tipo: "alvo",
+          itemId: x.codigo,
+        }));
+        const anc = BLOCOS.ancoras.map((x) => ({
+          ...x,
+          tipo: "ancora",
+          itemId: x.codigo,
+        }));
+        const lista = shuffle(alvos.concat(anc), rnd);
+        // só repete itens que têm pelo menos MIN_GAP_REPETICAO posições depois deles
+        const elegiveis = lista
+          .slice(0, Math.max(0, lista.length - MIN_GAP_REPETICAO))
+          .filter((x) => x.tipo === "alvo");
+        const reps = shuffle(elegiveis, rnd).slice(0, BLOCOS.n_repeticoes || 0);
+        for (const r of reps) {
+          const i0 = lista.findIndex((x) => x.itemId === r.itemId);
+          const min = Math.min(lista.length, i0 + MIN_GAP_REPETICAO);
+          const pos = min + Math.floor(rnd() * (lista.length - min + 1));
+          lista.splice(pos, 0, {
+            ...r,
+            tipo: "repeticao",
+            itemId: r.codigo + "#r",
+          });
+        }
+        return lista;
+      }
+
+      const storeKey = (pid) => `valid1::${pid}`;
+      const demoKey = (pid) => `valid1::demo::${pid}`;
       function save() {
         try {
-          localStorage.setItem(storeKey(S.pid, S.semana), JSON.stringify(S));
+          localStorage.setItem(storeKey(S.pid), JSON.stringify(S));
         } catch (e) {}
       }
-      function load(pid, sem) {
+      function loadS(pid) {
         try {
-          const r = localStorage.getItem(storeKey(pid, sem));
+          const r = localStorage.getItem(storeKey(pid));
           return r ? JSON.parse(r) : null;
         } catch (e) {
           return null;
         }
       }
-
-      /* ---------- carregamento inicial ---------- */
-      async function boot() {
-        const sel = $("#inSemana");
-        try {
-          BLOCKS = await (
-            await fetch(CONFIG.dataBase + "weekly_blocks.json")
-          ).json();
-        } catch (e) {
-          $("#loginErr").textContent =
-            "Não consegui carregar weekly_blocks.json. Rode a partir de um servidor (não abrindo o arquivo direto).";
-        }
-        // participants.json só é necessário no modo offline (sem back-end)
-        if (!CONFIG.appsScriptUrl) {
-          try {
-            PARTS = await (
-              await fetch(CONFIG.dataBase + "participants.json")
-            ).json();
-          } catch (e) {}
-        }
-        const n = BLOCKS ? BLOCKS.n_semanas : 5;
-        sel.innerHTML = "";
-        for (let i = 1; i <= n; i++) {
-          const o = document.createElement("option");
-          o.value = i;
-          o.textContent = "Semana " + i;
-          sel.appendChild(o);
-        }
-        // pré-preenche via URL: ?pid=P01&semana=1
-        const q = new URLSearchParams(location.search);
-        if (q.get("pid")) $("#inPid").value = q.get("pid");
-        if (q.get("semana")) sel.value = q.get("semana");
-        flushOutbox();
-      }
-
-      /* ---------- login ---------- */
-      $("#btnLogin").onclick = async () => {
-        const pid = $("#inPid").value.trim();
-        const semana = parseInt($("#inSemana").value, 10);
-        const err = $("#loginErr");
-        err.textContent = "";
-        if (!pid) {
-          err.textContent = "Digite a senha recebida.";
-          return;
-        }
-
-        // autorização: back-end valida a senha; sem back-end, usa participants.json (offline)
-        let modalidade = null;
-        if (CONFIG.appsScriptUrl) {
-          try {
-            const r = await fetch(
-              CONFIG.appsScriptUrl +
-                "?action=auth&pid=" +
-                encodeURIComponent(pid),
-            );
-            const j = await r.json();
-            if (!j.ok) {
-              err.textContent =
-                "Senha não autorizada. Verifique a senha que você recebeu.";
-              return;
-            }
-            modalidade = j.modalidade;
-          } catch (e) {
-            err.textContent =
-              "Não consegui validar a senha (back-end fora do ar?).";
-            return;
-          }
-        } else {
-          if (!PARTS || !(pid in PARTS)) {
-            err.textContent = "Senha não encontrada.";
-            return;
-          }
-          modalidade = PARTS[pid];
-        }
-
-        // recupera sessão salva ou cria nova
-        S = load(pid, semana);
-        if (!S) {
-          let faixas = (BLOCKS.semanas[String(semana)] || []).slice();
-          // isolamento: letra/completa não recebem instrumentais (sem letra)
-          if (modalidade !== "melodia")
-            faixas = faixas.filter((f) => f.tem_letra === "sim");
-          const rnd = mulberry32(seedFrom(pid + "|" + semana));
-          faixas = shuffle(faixas, rnd);
-          S = {
-            pid,
-            semana,
-            modalidade,
-            coletadoEm: nowISO(),
-            demografia: loadDemo(pid),
-            respostas: [],
-            idx: 0,
-            faixas,
-          };
-        }
-        S.modalidade = modalidade; // garante travamento mesmo se lista mudar
-
-        // RETOMAR: back-end diz quais faixas ja foram avaliadas (funciona ate em outro navegador)
-        S.jaFeitas = 0;
-        if (CONFIG.appsScriptUrl) {
-          try {
-            const r = await fetch(
-              CONFIG.appsScriptUrl +
-                "?action=progress&pid=" +
-                encodeURIComponent(pid) +
-                "&semana=" +
-                semana,
-            );
-            const done = new Set((await r.json()).done || []);
-            S.respostas.forEach((x) => done.add(x.trackId)); // soma o que já está local
-            const prox = S.faixas.findIndex((f) => !done.has(f.id));
-            S.idx = prox < 0 ? S.faixas.length : prox; // pula as já feitas
-            S.jaFeitas = done.size;
-          } catch (e) {}
-        }
-        save();
-        if (!S.demografia) {
-          show("Demo");
-        } else {
-          startIntro();
-        }
-      };
-
-      /* ---------- demografia (uma vez por pid) ---------- */
-      const demoKey = (pid) => `anot::demo::${pid}`;
       function loadDemo(pid) {
         try {
           const r = localStorage.getItem(demoKey(pid));
@@ -664,72 +580,164 @@
           return null;
         }
       }
+
+      async function boot() {
+        try {
+          BLOCOS = await (
+            await fetch(CONFIG.dataBase + "validacao_blocos.json")
+          ).json();
+        } catch (e) {
+          $("#loginErr").textContent =
+            "Não consegui carregar os dados. Rode a partir de um servidor (não abrindo o arquivo direto).";
+        }
+        if (!CONFIG.appsScriptUrl) {
+          try {
+            PARTS = await (
+              await fetch(CONFIG.dataBase + "validacao_participantes.json")
+            ).json();
+          } catch (e) {}
+        }
+        const q = new URLSearchParams(location.search);
+        if (q.get("pid")) $("#inPid").value = q.get("pid");
+        flushOutbox();
+      }
+
+      $("#btnLogin").onclick = async () => {
+        const pid = $("#inPid").value.trim().toLowerCase();
+        const err = $("#loginErr");
+        err.textContent = "";
+        if (!pid) {
+          err.textContent = "Digite o código recebido.";
+          return;
+        }
+        if (!BLOCOS) {
+          err.textContent = "Dados não carregados.";
+          return;
+        }
+        let bloco = null;
+        if (CONFIG.appsScriptUrl) {
+          try {
+            const j = await (
+              await fetch(
+                CONFIG.appsScriptUrl +
+                  "?action=auth&pid=" +
+                  encodeURIComponent(pid),
+              )
+            ).json();
+            if (!j.ok) {
+              err.textContent =
+                "Código não autorizado. Confira o código que você recebeu.";
+              return;
+            }
+            bloco = j.bloco;
+          } catch (e) {
+            err.textContent =
+              "Não consegui validar o código (back-end fora do ar?).";
+            return;
+          }
+        } else {
+          if (!PARTS || !(pid in PARTS)) {
+            err.textContent = "Código não encontrado.";
+            return;
+          }
+          bloco = PARTS[pid];
+        }
+        if (!BLOCOS.itens[bloco]) {
+          err.textContent = "Bloco inválido para este código.";
+          return;
+        }
+
+        S = loadS(pid);
+        if (!S) {
+          S = {
+            pid,
+            bloco,
+            coletadoEm: nowISO(),
+            demografia: loadDemo(pid),
+            respostas: [],
+            idx: 0,
+            lista: montarLista(pid, bloco),
+          };
+        }
+        S.bloco = bloco;
+        S.jaFeitas = 0;
+        if (CONFIG.appsScriptUrl) {
+          try {
+            const j = await (
+              await fetch(
+                CONFIG.appsScriptUrl +
+                  "?action=progress&pid=" +
+                  encodeURIComponent(pid),
+              )
+            ).json();
+            const done = new Set(j.done || []);
+            S.respostas.forEach((x) => done.add(x.itemId));
+            const prox = S.lista.findIndex((f) => !done.has(f.itemId));
+            S.idx = prox < 0 ? S.lista.length : prox;
+            S.jaFeitas = done.size;
+          } catch (e) {}
+        } else {
+          S.jaFeitas = S.respostas.length;
+        }
+        save();
+        if (!S.demografia) show("Demo");
+        else startIntro();
+      };
+
       $("#btnDemo").onclick = () => {
         const d = {
-          nome: $("#dNome").value.trim(),
           idade: $("#dIdade").value.trim(),
+          nativo: $("#dNativo").value,
           familiaridade: $("#dFam").value,
           musico: $("#dMusico").value,
         };
         const err = $("#demoErr");
-        err.textContent = "";
-        if (!d.nome || !d.idade || !d.familiaridade || !d.musico) {
+        if (!d.idade || !d.nativo || !d.familiaridade || !d.musico) {
           err.textContent = "Preencha todos os campos.";
           return;
         }
-        localStorage.setItem(demoKey(S.pid), JSON.stringify(d));
+        if (+d.idade < 18) {
+          err.textContent = "A pesquisa é para maiores de 18 anos.";
+          return;
+        }
+        if (d.nativo !== "sim") {
+          err.textContent =
+            "Esta pesquisa é para falantes nativos de português brasileiro. Obrigado pelo interesse!";
+          return;
+        }
+        err.textContent = "";
+        try {
+          localStorage.setItem(demoKey(S.pid), JSON.stringify(d));
+        } catch (e) {}
         S.demografia = d;
         save();
-        push({ type: "demografia", pid: S.pid, ...d, coletadoEm: nowISO() });
+        push({
+          type: "demografia",
+          pid: S.pid,
+          bloco: S.bloco,
+          ...d,
+          coletadoEm: nowISO(),
+        });
         startIntro();
       };
 
-      /* ---------- intro ---------- */
       function startIntro() {
-        const nomes = {
-          letra: "Você avalia apenas a LETRA em texto (sem áudio).",
-          melodia:
-            "Você avalia apenas a MELODIA/instrumental (sem voz, sem letra).",
-          completa:
-            "Você avalia a MÚSICA COMPLETA cantada (áudio original, sem texto).",
-        };
-        let msg = "<b>Sua modalidade:</b> " + nomes[S.modalidade];
-        if (S.jaFeitas > 0 && S.idx < S.faixas.length)
-          msg +=
-            "<br><span class='ok'>✓ Você já avaliou " +
-            S.jaFeitas +
-            " faixa(s) nesta semana — vamos continuar de onde você parou.</span>";
-        else if (S.jaFeitas > 0 && S.idx >= S.faixas.length)
-          msg += "<br><span class='ok'>✓ Você já concluiu esta semana.</span>";
-        $("#introMod").innerHTML = msg;
+        let msg = `Você vai ouvir ${S.lista.length} trechos curtos (cerca de 20 minutos). Pode pausar e voltar depois.`;
+        if (S.jaFeitas > 0 && S.idx < S.lista.length)
+          msg += `<br><span class='ok'>✓ Você já avaliou ${S.jaFeitas} trecho(s) — vamos continuar de onde parou.</span>`;
+        else if (S.idx >= S.lista.length)
+          msg += "<br><span class='ok'>✓ Você já concluiu.</span>";
+        $("#introMsg").innerHTML = msg;
         show("Intro");
       }
       $("#btnIntro").onclick = () => {
-        if (S.idx >= S.faixas.length) {
-          finish();
-        } else {
+        if (S.idx >= S.lista.length) finish();
+        else {
           show("Trial");
           renderTrial();
         }
       };
 
-      /* ---------- escalas categóricas de 5 níveis (codificadas 1..5) ---------- */
-      const ESCALA = "cat5"; // gravada em cada resposta; o agregador usa para converter
-      const CATS = {
-        valencia: [
-          "Muito negativa",
-          "Negativa",
-          "Neutra",
-          "Positiva",
-          "Muito positiva",
-        ],
-        arousal: ["Muito calma", "Calma", "Neutra", "Agitada", "Muito agitada"],
-      };
-      const PERGUNTA = {
-        letra: "Que emoção esta LETRA expressa?",
-        melodia: "Que emoção esta MELODIA (instrumental) expressa?",
-        completa: "Que emoção esta MÚSICA expressa?",
-      };
       function buildScale(container, name) {
         container.innerHTML = "";
         for (let v = 1; v <= 5; v++) {
@@ -743,78 +751,40 @@
           const lab = document.createElement("label");
           lab.htmlFor = name + v;
           lab.textContent = CATS[name][v - 1];
-          inp.onchange = onAnswerChange;
+          inp.onchange = updateNext;
           wrap.appendChild(inp);
           wrap.appendChild(lab);
           container.appendChild(wrap);
         }
       }
 
-      /* ---------- trial ---------- */
       let listenMs = 0,
         listened = false,
         listenTimer = null;
       function renderTrial() {
-        const f = S.faixas[S.idx];
-        $("#tProg").textContent = `Faixa ${S.idx + 1} de ${S.faixas.length}`;
-        $("#tMod").textContent = "modalidade: " + S.modalidade;
-        $("#tBar").style.width = (100 * S.idx) / S.faixas.length + "%";
-
-        $("#tQuestion").textContent =
-          PERGUNTA[S.modalidade] || PERGUNTA.completa;
+        const f = S.lista[S.idx];
+        $("#tProg").textContent = `Trecho ${S.idx + 1} de ${S.lista.length}`;
+        $("#tBar").style.width = (100 * S.idx) / S.lista.length + "%";
         buildScale($("#scaleV"), "valencia");
         buildScale($("#scaleA"), "arousal");
-        $("#tNao").checked = false;
+        document
+          .querySelectorAll("input[name=conhece]")
+          .forEach((i) => ((i.checked = false), (i.onchange = updateNext)));
         listened = false;
         listenMs = 0;
-
-        const useAudio =
-          S.modalidade === "melodia" || S.modalidade === "completa";
-        const useLyrics = S.modalidade === "letra"; // completa = musica cantada, sem texto
-        $("#tAudio").classList.toggle("hidden", !useAudio);
-        $("#tLyricsWrap").classList.toggle("hidden", !useLyrics);
-
-        if (useAudio) {
-          // melodia -> instrumental (sem vocais); completa -> mix completo
-          const audioPath =
-            S.modalidade === "melodia"
-              ? f.audio_melodia || f.audio_excerpt
-              : f.audio_excerpt;
-          const au = $("#au");
-          au.src = CONFIG.stimuliBase + audioPath;
-          au.load();
-          $("#aBar").style.width = "0";
-          $("#btnPlay").textContent = "▶";
-          $("#aHint").innerHTML = "Ouça o trecho de ~30s antes de avaliar.";
-        }
-        if (useLyrics) {
-          loadLyrics(f);
-        }
-        $("#tSaveHint").textContent = "";
+        clearInterval(listenTimer);
+        const au = $("#au");
+        au.src = CONFIG.stimuliBase + f.audio;
+        au.load();
+        $("#aBar").style.width = "0";
+        $("#btnPlay").textContent = "▶";
+        $("#aHint").innerHTML =
+          "Ouça pelo menos 10 s para liberar a avaliação.";
         $("#btnNext").disabled = true;
+        $("#tSaveHint").textContent = "";
         updateNext();
       }
 
-      async function loadLyrics(f) {
-        const box = $("#tLyrics");
-        box.textContent = "carregando letra…";
-        // prefere a letra casada ao trecho; cai na letra inteira se faltar/vazia
-        const fontes = [f.lyrics_excerpt, f.lyrics_file].filter(Boolean);
-        for (const src of fontes) {
-          try {
-            const r = await fetch(CONFIG.stimuliBase + src);
-            if (!r.ok) continue;
-            const t = (await r.text()).trim();
-            if (t) {
-              box.textContent = t;
-              return;
-            }
-          } catch (e) {}
-        }
-        box.textContent = "(letra não encontrada)";
-      }
-
-      /* player 30s com gate de escuta — botao reflete o estado REAL do audio */
       $("#btnPlay").onclick = () => {
         const au = $("#au");
         if (au.paused) {
@@ -824,11 +794,9 @@
               $("#aHint").innerHTML =
                 "<span class='warn'>Não consegui tocar o áudio (" +
                 err.name +
-                "). Confira o volume do sistema e as permissões de som do navegador, e tente de novo.</span>";
+                "). Confira o volume e as permissões de som do navegador.</span>";
             });
-        } else {
-          au.pause();
-        }
+        } else au.pause();
       };
       $("#au").addEventListener("timeupdate", () => {
         const au = $("#au");
@@ -837,8 +805,15 @@
       });
       $("#au").addEventListener("play", () => {
         $("#btnPlay").textContent = "⏸";
+        clearInterval(listenTimer);
         listenTimer = setInterval(() => {
           listenMs += 250;
+          if (!listened && listenMs >= MIN_ESCUTA_MS) {
+            listened = true;
+            $("#aHint").innerHTML =
+              "<span class='ok'>✓ Pode avaliar (o ideal é ouvir o trecho até o fim).</span>";
+          }
+          updateNext();
         }, 250);
       });
       $("#au").addEventListener("pause", () => {
@@ -854,78 +829,72 @@
         updateNext();
       });
 
-      function onAnswerChange() {
-        updateNext();
-      }
-      function currentVals() {
-        const v = document.querySelector("input[name=valencia]:checked");
-        const a = document.querySelector("input[name=arousal]:checked");
-        return { v: v ? +v.value : null, a: a ? +a.value : null };
+      function vals() {
+        const g = (n) => {
+          const e = document.querySelector(`input[name=${n}]:checked`);
+          return e ? e.value : null;
+        };
+        return {
+          v: g("valencia") ? +g("valencia") : null,
+          a: g("arousal") ? +g("arousal") : null,
+          c: g("conhece"),
+        };
       }
       function updateNext() {
-        const { v, a } = currentVals();
-        const useAudio =
-          S.modalidade === "melodia" || S.modalidade === "completa";
-        const gateOk = !useAudio || listened;
-        $("#btnNext").disabled = !(v && a && gateOk);
-        if (useAudio && !listened)
-          $("#tSaveHint").textContent = "Ouça o trecho inteiro para liberar.";
-        else if (!(v && a))
-          $("#tSaveHint").textContent = "Escolha uma opção em valência e em arousal.";
-        else $("#tSaveHint").textContent = "";
+        const { v, a, c } = vals();
+        $("#btnNext").disabled = !(v && a && c && listened);
+        const falta = Math.max(0, Math.ceil((MIN_ESCUTA_MS - listenMs) / 1000));
+        $("#tSaveHint").textContent = !listened
+          ? `Ouça pelo menos 10 s para liberar (faltam ${falta} s de áudio).`
+          : !(v && a && c)
+            ? "Responda as três perguntas."
+            : "";
       }
 
       $("#btnNext").onclick = () => {
-        const f = S.faixas[S.idx];
-        const { v, a } = currentVals();
+        const f = S.lista[S.idx];
+        const { v, a, c } = vals();
         const resp = {
-          trackId: f.id,
+          itemId: f.itemId,
+          item: f.codigo,
+          tipo: f.tipo,
           ordem: S.idx,
           valencia: v,
           arousal: a,
           escala: ESCALA,
-          naoConheco: $("#tNao").checked ? 1 : 0,
+          conhece: c,
           listenMs,
           respondidoEm: nowISO(),
         };
-        // substitui se já existir (reentrada), senão adiciona
-        const ex = S.respostas.findIndex((r) => r.trackId === f.id);
+        const ex = S.respostas.findIndex((r) => r.itemId === f.itemId);
         if (ex >= 0) S.respostas[ex] = resp;
         else S.respostas.push(resp);
         S.idx++;
         save();
-        // envia a resposta individual (não perde informação se sair no meio)
         push({
           type: "resposta",
           pid: S.pid,
-          modalidade: S.modalidade,
-          semana: S.semana,
+          bloco: S.bloco,
           ...resp,
           ...(S.demografia || {}),
           enviadoEm: nowISO(),
         });
-        if (S.idx >= S.faixas.length) {
-          finish();
-        } else {
-          renderTrial();
-        }
+        if (S.idx >= S.lista.length) finish();
+        else renderTrial();
       };
 
-      /* ---------- fim ---------- */
       function finish() {
         S.finalizadoEm = nowISO();
         save();
         push({
           type: "fim",
           pid: S.pid,
-          modalidade: S.modalidade,
-          semana: S.semana,
+          bloco: S.bloco,
           total: S.respostas.length,
           coletadoEm: nowISO(),
         });
-        $("#tBar") && ($("#tBar").style.width = "100%");
         $("#doneMsg").textContent =
-          `Você avaliou ${S.respostas.length} faixa(s) na semana ${S.semana} (modalidade ${S.modalidade}).`;
+          `Você avaliou ${S.respostas.length} trecho(s). Obrigado por participar!`;
         flushOutbox().then(updateDoneSync);
         show("Done");
       }
@@ -933,32 +902,35 @@
         const n = outbox().length;
         $("#doneSync").innerHTML =
           n === 0
-            ? "<span class='ok'>✓ Todas as respostas foram enviadas ao servidor.</span>"
-            : `<span class='warn'>⚠ ${n} resposta(s) ainda não sincronizadas — mantenha esta aba aberta com internet, ou baixe o JSON e envie ao pesquisador.</span>`;
+            ? "<span class='ok'>✓ Todas as respostas foram enviadas.</span>"
+            : `<span class='warn'>⚠ ${n} resposta(s) ainda não enviadas — mantenha esta aba aberta com internet, ou baixe o JSON e envie ao pesquisador.</span>`;
       }
       $("#btnDownload").onclick = () => {
-        const blob = new Blob([JSON.stringify(exportJSON(), null, 2)], {
-          type: "application/json",
-        });
+        const blob = new Blob(
+          [
+            JSON.stringify(
+              {
+                pid: S.pid,
+                bloco: S.bloco,
+                demografia: S.demografia,
+                coletadoEm: S.coletadoEm,
+                finalizadoEm: S.finalizadoEm || null,
+                respostas: S.respostas,
+              },
+              null,
+              2,
+            ),
+          ],
+          { type: "application/json" },
+        );
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `anotacao_${S.pid}_S${S.semana}.json`;
+        a.download = `validacao_${S.pid}.json`;
         a.click();
       };
-      function exportJSON() {
-        return {
-          pid: S.pid,
-          modalidade: S.modalidade,
-          semana: S.semana,
-          demografia: S.demografia,
-          coletadoEm: S.coletadoEm,
-          finalizadoEm: S.finalizadoEm || null,
-          respostas: S.respostas,
-        };
-      }
 
-      /* ---------- fila de envio (outbox) resiliente ---------- */
-      const OUTBOX = "anot::outbox";
+      /* ---------- fila de envio resiliente ---------- */
+      const OUTBOX = "valid1::outbox";
       function outbox() {
         try {
           return JSON.parse(localStorage.getItem(OUTBOX) || "[]");
@@ -980,8 +952,8 @@
         flushOutbox();
       }
       function setSync() {
-        const n = outbox().length;
-        const el = $("#syncState");
+        const n = outbox().length,
+          el = $("#syncState");
         if (!CONFIG.appsScriptUrl) {
           el.textContent = "modo offline";
           el.style.color = "var(--muted)";
@@ -999,28 +971,24 @@
         flushing = true;
         let a = outbox();
         while (a.length) {
-          const item = a[0];
           try {
             await fetch(CONFIG.appsScriptUrl, {
               method: "POST",
               mode: "no-cors",
               headers: { "Content-Type": "text/plain;charset=utf-8" },
-              body: JSON.stringify(item),
+              body: JSON.stringify(a[0]),
             });
             a = outbox();
             a.shift();
-            setOutbox(a); // sucesso (no-cors: assumido)
+            setOutbox(a);
           } catch (e) {
             break;
-          } // sem internet: tenta depois
-          a = outbox();
+          }
         }
         flushing = false;
         setSync();
       }
       window.addEventListener("online", flushOutbox);
-      setInterval(flushOutbox, 20000);
-
       boot();
     </script>
   </body>
